@@ -1,0 +1,17 @@
+[
+    {
+        "id": 0,
+        "username": "Anna", 
+        "password": 111,
+        "places": [
+            {
+                "coordinates": [ [53.907668], [27.585951]],
+                "imgUrl": "soon",
+                "text": "Great place"
+            }
+        ]
+    
+    }
+
+
+]

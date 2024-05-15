@@ -1,6 +1,5 @@
 import { YMaps, Map, GeolocationControl, Placemark, FullscreenControl, TypeSelector, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
-import AddMarks from './components/addMark/addMark';
 function App() {
   const placemarks = [[ [53.907668], [27.585951]], [[57.907668], [28.585951]]];
   return (
@@ -12,7 +11,6 @@ function App() {
            defaultState={{ center: [53.907668, 27.585951], zoom: 9 }}>
               {placemarks.map((coordinates, index) => (
                 <Placemark key={index} geometry={coordinates}/>
-                
               ))}
               
             <FullscreenControl />
