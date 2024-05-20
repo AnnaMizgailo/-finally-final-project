@@ -1,4 +1,11 @@
 import { YMaps, Map, GeolocationControl, Placemark, FullscreenControl, TypeSelector, Clusterer } from '@pbe/react-yandex-maps';
+
+import Login from "./components/Login";
+import Menu from "./components/Menu";
+import AdminControl from "./components/AdminControl";
+
+import {isAuth} from "./hooks/useAuth";
+
 import { useEffect, useState } from 'react';
 function App() {
   const placemarks = [[ [53.907668], [27.585951]], [[57.907668], [28.585951]]];
