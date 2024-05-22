@@ -19,6 +19,9 @@ const Menu = () =>{
                     <NavLink to="/register" exact="true" activeclassname="active">
                         Sign up
                     </NavLink>
+                    <NavLink to="/addpoint" exact="true" activeclassname="active">
+                        Add point
+                    </NavLink>
                 </li>
 
             </ul>

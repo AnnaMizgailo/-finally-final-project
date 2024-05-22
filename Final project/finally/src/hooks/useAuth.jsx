@@ -33,6 +33,25 @@ export const useAuth = () => {
         }
     };
 
+    const logout = async () =>{
+        try{
+            const response = await axiosInstance.get(`${host}/logout`);
+            if (response.data.success){
+                setAuthentication(false);
+            }
+        }catch{
+            console.error(error);
+        }
+    };
+    const checkAuth = async () =>{
+        try{
+            const response = await axiosInstance.get(`${host}/auth`);
+            console.log(response.data.isAuthenticated);
+        }catch{
+            console.log(error);
+        }
+    }
+
     useEffect(()=>{
         checkAuth();
     }, []);

@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 
-const Login = ({setUserData}) => {
+const Login = (setUserData) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (event) => {
         console.log({username, password});
+        //places..
         setUserData({username, password});
     };
     return (
