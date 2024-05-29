@@ -1,9 +1,14 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+const routes = require("./routes/index")
 
 const cors = require("cors");
 const morgan = require("morgan");
+
+const app = express();
+
+const bodyParser = require('body-parser');
 
 app.use(
     cors({

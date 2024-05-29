@@ -16,10 +16,10 @@ router.get("/auth", controllers.auth);
 router.get("/logout", isAuth, controllers.logout);
 router.get("/check", isAuth, controllers.check);
 
-router.get("/product/by-id/:id", controllers.getById);
-router.get("/product/get-all", controllers.getAll);
-router.post("/product/add", controllers.add);
-router.put("/product/:id", controllers.update);
-router.delete("/product/:id", controllers.delete);
+router.get("/place/by-id/:id", controllers.getById);
+router.get("/place/get-all", controllers.getAll);
+router.post("/place/add", controllers.add);
+router.put("/place/:id", controllers.update);
+router.delete("/place/:id", controllers.delete);
 
 module.exports = router;

@@ -1,13 +1,12 @@
-const dataFolder = require("../data");
+const dataFile = require("../data/dataModify");
 
 module.exports = {
     get: async (_, res) => {
         res.json({ok: 13}); //?????
     },
     login: async(req, res) => {
-        const { username, password} = req.body;
-
-        const isAuthenticated = await dataFolder.isUserExists(username).password === password;
+        const {username, password} = req.body;
+        const isAuthenticated = await dataFile.isUserExists(username).password === password;
 
         if (isAuthenticated){
             req.session.userId = 1;
@@ -27,25 +26,25 @@ module.exports = {
 
     getById: async (req, res) =>{
         const {id} = req.params;
-        res.json(await dataFolder.getUserById(id));
+        res.json(await dataFile.getUserById(id));
     },
-    getAll: async (req, res) =>{
-        res.json(await dataFolder.getUsers());
+    getAll: async (_, res) =>{
+        res.json(await dataFile.getUsers());
     },
     add: async (req, res) => {
         const {username, password, places} = req.body;
-        await dataFolder.addUser({username, password, places});
+        await dataFile.addUser({username, password, places});
         res.sendStatus(200);
     },
     update: async (req, res) => {
         const {username, password, places} = req.body;
         const {id} = req.params;
-        const result = await dataFolder.updateUser(id, {username, password, places});
+        const result = await dataFile.updateUser(id, {username, password, places});
         res.sendStatus({result});
     },
     delete: async (req, res) => {
         const {id} = req.params;
-        const result = await dataFolder.deleteUser(id);
+        const result = await dataFile.deleteUser(id);
         res.json({result});
     }
 }
