@@ -1,8 +1,8 @@
 const dataFile = require("../data/dataModify");
 
 module.exports = {
-    get: async (_, res) => {
-        res.json({ok: 13}); //?????
+    get: async (req, res) => {
+        res.status(200).send({success: true});
     },
     login: async(req, res) => {
         const {username, password} = req.body;
@@ -19,16 +19,17 @@ module.exports = {
         req.session.destroy();
         res.status(200).send({ success: true });
     },
-    check: async (_, res) =>{
+    check: async (req, res) =>{
         res.json({text: 13}) // ???
     },
-
-
+    auth: async (req, res) => {
+        res.send("Auth");
+    },
     getById: async (req, res) =>{
         const {id} = req.params;
         res.json(await dataFile.getUserById(id));
     },
-    getAll: async (_, res) =>{
+    getAll: async (req, res) =>{
         res.json(await dataFile.getUsers());
     },
     add: async (req, res) => {
@@ -40,7 +41,7 @@ module.exports = {
         const {username, password, places} = req.body;
         const {id} = req.params;
         const result = await dataFile.updateUser(id, {username, password, places});
-        res.sendStatus({result});
+        res.json({result});
     },
     delete: async (req, res) => {
         const {id} = req.params;
