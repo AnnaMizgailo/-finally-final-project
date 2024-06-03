@@ -1,9 +1,10 @@
 import { YMaps, Map, GeolocationControl, Placemark, FullscreenControl, TypeSelector, Clusterer } from '@pbe/react-yandex-maps';
-import {Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import Login from "./components/Login";
 import Menu from "./components/Menu";
 import AddPoint from "./components/AddPoint";
+import Register from './components/Register';
 import AdminControl from "./components/AdminControl";
 
 import {useAuth} from "./hooks/useAuth";
@@ -20,19 +21,25 @@ function App() {
     if(username.trim() != "" && password.trim() != "") login(username, password);
   }, [userData]);
 
+  
+
   return (
     <>
-    <Router>
-    <Menu />
+    
+  <Router>
+    <Menu/>
     <Routes>
-      <Route path="/"/>
+      <Route path ="/"/>
 
-      {(isAuthenticated)? <Route path="/login" exact element={<><button onClick = {logout}>Log out</button></>}/> : 
-      <Route path="/login" exact element={<Login setUserData={setUserData}/>}/>}
-      <Route path="/register" exact element={null}/>
-      <Route path="/addpoint" exact element={<AddPoint setUserData={setUserData}/>}/> 
+      {(isAuthenticated)? <Route path ="/login" element={<><button onClick = {logout}>Log out</button></>}/> : 
+      <Route path ="/login"  element={<Login setUserData={setUserData}/>}/>}
+
+      <Route path ="/register" element={<Register setUserData={setUserData}/>}/>
+      {(isAuthenticated)? <Route path ="/addpoint"  element={<AddPoint {...userData} setUserData={setUserData}/>}/> :
+      <Route path ="/addpoint"  element={null}/> }
+      <Route path="*" element={<>Page not found</>}/>
     </Routes>
-    </Router>
+  </Router>
 
      <YMaps enterprise query={{apikey: '89cd12bf-209a-4bea-a680-816364016285'}}>
         <div className="map" >

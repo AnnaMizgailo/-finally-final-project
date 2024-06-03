@@ -48,7 +48,7 @@ export const useAuth = () => {
             const response = await axiosInstance.get(`${host}/auth`);
             console.log(response.data.isAuthenticated);
         }catch{
-            console.log(error);
+            console.error(error);
         }
     }
 

@@ -1,3 +1,4 @@
+import {useState} from "react"
 
 const AddPoint = async (username, password, points, setUserData) => {
     const [coordinates, setCoordinates] = useState([[], []]);
@@ -7,6 +8,7 @@ const AddPoint = async (username, password, points, setUserData) => {
     const handleSubmit = (event) => {
         console.log({coordinates, imgSrc, text});
         setUserData(username, password, [...points, {coordinates, imgSrc, text}]);
+        fetch(`/place/${points.length}`)
     };
     const transformCoordinates = (coordinates) => {
         x = coordinates.split(", ")[0];

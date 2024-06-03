@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink} from "react-router-dom"
+import {NavLink} from "react-router-dom"
 import {useAuth} from "../hooks/useAuth";
 const Menu = () =>{
     const { isAuthenticated, login, logout} = useAuth();
@@ -16,9 +16,13 @@ const Menu = () =>{
                     <NavLink to="/login" exact="true" activeclassname="active">
                         Sign in
                     </NavLink>
+                </li>
+                <li>
                     <NavLink to="/register" exact="true" activeclassname="active">
                         Sign up
                     </NavLink>
+                </li>
+                <li>
                     <NavLink to="/addpoint" exact="true" activeclassname="active">
                         Add point
                     </NavLink>
