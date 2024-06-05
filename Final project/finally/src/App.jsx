@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Menu from "./components/Menu";
 import AddPoint from "./components/AddPoint";
 import Register from './components/Register';
+import usePlaces from './hooks/usePlaces';
 import AdminControl from "./components/AdminControl";
 
 import {useAuth} from "./hooks/useAuth";
@@ -12,14 +13,21 @@ import {useAuth} from "./hooks/useAuth";
 import { useEffect, useState } from 'react';
 function App() {
   const {isAuthenticated, login, logout} = useAuth();
-  const [userData, setUserData] = useState({username: "", password: "", places: []});
+  const {addPlace} = usePlaces();
+  const [userData, setUserData] = useState({username: "", password: "", isNew: false});
+  const [place, setPlace] = useState({name: "", coordinates: [[0], [0]], text: "", imgSrc: ""});
   const placemarks = [[ [53.907668], [27.585951]], [[57.907668], [28.585951]]];
 
   useEffect(()=>{
-    const {username, password, places} = userData;
-
-    if(username.trim() != "" && password.trim() != "") login(username, password);
+    const {username, password, isNew} = userData;
+    console.log("Use effect:" + username + password + isNew);
+    if(username.trim() != "" && password.trim() != "") login(username, password, isNew);
   }, [userData]);
+
+  useEffect(()=>{
+    const {name, coordinates, text, imgSrc} = place;
+    if(name.trim() != "" && coordinates !== [[0],[0]] && text != "" && imgSrc != "") addPlace(name, coordinates, text, imgSrc);
+  }, [place]);
 
   
 
@@ -35,8 +43,8 @@ function App() {
       <Route path ="/login"  element={<Login setUserData={setUserData}/>}/>}
 
       <Route path ="/register" element={<Register setUserData={setUserData}/>}/>
-      {(isAuthenticated)? <Route path ="/addpoint"  element={<AddPoint {...userData} setUserData={setUserData}/>}/> :
-      <Route path ="/addpoint"  element={null}/> }
+      {(isAuthenticated)? <Route path ="/addpoint"  element={<AddPoint setPlace={setPlace}/>}/> :
+      <Route path ="/addpoint"  element={<p>Log in, please!</p>}/> }
       <Route path="*" element={<>Page not found</>}/>
     </Routes>
   </Router>

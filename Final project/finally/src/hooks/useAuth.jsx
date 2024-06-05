@@ -10,21 +10,24 @@ const axiosInstance = axios.create({
 export const useAuth = () => {
     const [isAuthenticated, setAuthentication] = useState(false);
 
-    const login = async (username, password) => {
+    const login = async (username, password, isNew) => {
         try{
-            console.log(username, password);
-            const response = await axiosInstance.post(
-                `${host}/login`,
-                {
-                    username,
-                    password
-                },
-                {
-                    headers:{
-                        "Content-Type": "aplication/json"
-                    }
-                }
-            );
+            let response = false;
+            console.log("From login - username:" + username + " password:", password, "isnew: ", isNew);
+            if(isNew){
+                response = await axiosInstance.post(
+                    `${host}/add`, 
+                        {username: username, password: password}
+                    
+                );
+            }else{
+                response = await axiosInstance.post(
+                    `${host}/login`,
+                        {username: username, password: password}
+                    
+                );
+            }
+            
             if(response.data.success){
                 setAuthentication(true);
             }
@@ -38,6 +41,7 @@ export const useAuth = () => {
             const response = await axiosInstance.get(`${host}/logout`);
             if (response.data.success){
                 setAuthentication(false);
+                console.log("You logged out")
             }
         }catch{
             console.error(error);

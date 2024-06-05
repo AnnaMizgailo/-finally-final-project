@@ -1,15 +1,16 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 
-const Register = (setUserData) => {
+const Register = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+    const isNew = true;
 
     const handleSubmit = (event) => {
         console.log({username, password, repeatPassword});
         if(password === repeatPassword){
-            setUserData({username, password});
-            fetch("/auth", {username, password})
+            props.setUserData({username, password, isNew});
             return;
         }
         console.log("Password doesn't match!")
@@ -27,6 +28,9 @@ const Register = (setUserData) => {
             <button onClick={handleSubmit}>Log in</button>
         </div>
     )
+};
+Register.propTypes = {
+    setUserData: PropTypes.func.isRequired
 };
 
 export default Register;
