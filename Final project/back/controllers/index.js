@@ -6,10 +6,12 @@ module.exports = {
     },
     login: async(req, res) => {
         const {username, password} = req.body;
-        const isAuthenticated = await dataFile.isUserExists(username).password === password;
+        console.log(req.body);
+        const isAuthenticated = await dataFile.isUserExists(username, password);
+        console.log(isAuthenticated);
 
         if (isAuthenticated){
-            req.session.userId = 1;
+            req.session.userId = dataFile.returnIdByNameAndPass;
             res.status(200).send({success: true});
         }else{
             res.status(401).send({success: false});
@@ -26,26 +28,28 @@ module.exports = {
         res.send("Auth");
     },
     getById: async (req, res) =>{
-        const {id} = req.params;
-        res.json(await dataFile.getUserById(id));
+        res.json(await dataFile.getUserById(req.session.userId));
     },
     getAll: async (req, res) =>{
         res.json(await dataFile.getUsers());
     },
     add: async (req, res) => {
-        const {username, password, places} = req.body;
-        await dataFile.addUser({username, password, places});
-        res.sendStatus(200);
+        const {username, password} = req.body;
+        const response = await dataFile.addUser({username, password});
+        res.status(200).send({success: true});
     },
     update: async (req, res) => {
         const {username, password, places} = req.body;
-        const {id} = req.params;
-        const result = await dataFile.updateUser(id, {username, password, places});
+        const result = await dataFile.updateUser(req.session.userId, {username, password, places});
         res.json({result});
     },
     delete: async (req, res) => {
-        const {id} = req.params;
-        const result = await dataFile.deleteUser(id);
+        const result = await dataFile.deleteUser(req.session.userId);
+        res.json({result});
+    },
+    placeAdd: async (req, res) =>{
+        const {name, coordinates, text, imgSrc} = req.body;
+        const result = await dataFile.addPlace(name, coordinates, text, imgSrc, req.session.userId);
         res.json({result});
     }
 }

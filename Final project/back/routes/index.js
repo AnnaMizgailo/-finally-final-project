@@ -15,6 +15,7 @@ router.post("/login", controllers.login);
 router.get("/auth", controllers.auth);
 router.get("/logout", isAuth, controllers.logout);
 router.get("/check", isAuth, controllers.check);
+router.post("/add", controllers.add);
 
 router.get("/place/by-id/:id", controllers.getById);
 router.get("/place/get-all", controllers.getAll);
