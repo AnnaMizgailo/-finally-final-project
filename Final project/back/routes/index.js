@@ -13,13 +13,13 @@ const isAuth = async (req, res, next) => {
 router.get("/", controllers.get);
 router.post("/login", controllers.login);
 router.get("/auth", controllers.auth);
-router.get("/logout", isAuth, controllers.logout);
+router.get("/logout", controllers.logout);
 router.get("/check", isAuth, controllers.check);
 router.post("/add", controllers.add);
 
 router.get("/place/by-id/:id", controllers.getById);
-router.get("/place/get-all", controllers.getAll);
-router.post("/place/add", controllers.add);
+router.get("/place/get-all", controllers.placesGet);
+router.post("/place/add", controllers.placeAdd);
 router.put("/place/:id", controllers.update);
 router.delete("/place/:id", controllers.delete);
 

@@ -6,12 +6,10 @@ module.exports = {
     },
     login: async(req, res) => {
         const {username, password} = req.body;
-        console.log(req.body);
         const isAuthenticated = await dataFile.isUserExists(username, password);
-        console.log(isAuthenticated);
-
         if (isAuthenticated){
-            req.session.userId = dataFile.returnIdByNameAndPass;
+            req.session.userId = await dataFile.returnIdByNameAndPass(username, password);
+            console.log( "from server", req.session.userId);
             res.status(200).send({success: true});
         }else{
             res.status(401).send({success: false});
@@ -35,7 +33,7 @@ module.exports = {
     },
     add: async (req, res) => {
         const {username, password} = req.body;
-        const response = await dataFile.addUser({username, password});
+        await dataFile.addUser({username, password});
         res.status(200).send({success: true});
     },
     update: async (req, res) => {
@@ -48,8 +46,17 @@ module.exports = {
         res.json({result});
     },
     placeAdd: async (req, res) =>{
-        const {name, coordinates, text, imgSrc} = req.body;
-        const result = await dataFile.addPlace(name, coordinates, text, imgSrc, req.session.userId);
-        res.json({result});
+        const {name, coordinates, text, imgUrl} = req.body;
+        const result = await dataFile.addPlace(name, coordinates, text, imgUrl, req.session.userId);
+        if (result){
+            res.status(200).send({success: true});
+        }else{
+            res.status(400).send({success: false});
+        }
+       
+    },
+    placesGet: async (req, res) =>{
+        const result = await dataFile.returnListOfPlaces();
+        res.json(result);
     }
 }

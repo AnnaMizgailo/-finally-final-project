@@ -16,6 +16,32 @@
         ],
         "imgUrl": "soon",
         "text": "Great place"
+      },
+      {
+        "name": "yur",
+        "coordinates": [
+          [
+            55.7
+          ],
+          [
+            55.7
+          ]
+        ],
+        "text": "yg8y",
+        "imgUrl": "vgu"
+      },
+      {
+        "name": "eshudh",
+        "coordinates": [
+          [
+            45
+          ],
+          [
+            23
+          ]
+        ],
+        "text": "3gv",
+        "imgUrl": "35b5"
       }
     ]
   },
